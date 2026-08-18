@@ -57,7 +57,7 @@ Do not use the planned development authentication mechanism in production.
 
 To create the service from Render:
 
-1. Connect the private GitHub repository to Render and choose **New > Blueprint**.
+1. Connect the GitHub repository to Render and choose **New > Blueprint**.
 2. Select the repository and confirm that the service plan is **Free**.
 3. Enter `DemoAccess__Password` when prompted. Use a unique password of at least 16 characters.
 4. Do not add a payment method if the requirement is that Render suspend the service instead of billing for overages.
