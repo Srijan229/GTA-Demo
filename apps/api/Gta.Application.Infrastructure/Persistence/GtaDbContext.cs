@@ -7,6 +7,7 @@ using Gta.Application.Domain.Profiles;
 using Gta.Application.Domain.Configuration;
 using Gta.Application.Domain.Notifications;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gta.Application.Infrastructure.Persistence;
 
@@ -37,6 +38,30 @@ public sealed class GtaDbContext(DbContextOptions<GtaDbContext> options) : DbCon
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(GtaDbContext).Assembly);
+
+        if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+        {
+            var dateTimeOffsetConverter = new ValueConverter<DateTimeOffset, DateTime>(
+                value => value.UtcDateTime,
+                value => new DateTimeOffset(DateTime.SpecifyKind(value, DateTimeKind.Utc)));
+            var nullableDateTimeOffsetConverter = new ValueConverter<DateTimeOffset?, DateTime?>(
+                value => value.HasValue ? value.Value.UtcDateTime : null,
+                value => value.HasValue
+                    ? new DateTimeOffset(DateTime.SpecifyKind(value.Value, DateTimeKind.Utc))
+                    : null);
+
+            foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(type => type.GetProperties()))
+            {
+                if (property.ClrType == typeof(DateTimeOffset))
+                {
+                    property.SetValueConverter(dateTimeOffsetConverter);
+                }
+                else if (property.ClrType == typeof(DateTimeOffset?))
+                {
+                    property.SetValueConverter(nullableDateTimeOffsetConverter);
+                }
+            }
+        }
 
         foreach (var entityType in modelBuilder.Model.GetEntityTypes()
                      .Where(type => !type.IsOwned() && type.GetTableName() is not null))
