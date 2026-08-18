@@ -66,6 +66,7 @@ public static class DevelopmentAuthentication
         {
             var users = await db.Users
                 .AsNoTracking()
+                .Where(user => user.IsActive)
                 .OrderBy(user => user.DisplayName)
                 .Select(user => new DevelopmentUserResponse(
                     user.Id,
