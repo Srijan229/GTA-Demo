@@ -53,6 +53,8 @@ Do not use the planned development authentication mechanism in production.
 
 [`render.yaml`](render.yaml) defines a single free Docker web service for a controlled demonstration. It keeps the normal MySQL configuration unchanged and explicitly selects an ephemeral SQLite database for the Render demo only.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Srijan229/GTA-Demo)
+
 To create the service from Render:
 
 1. Connect the private GitHub repository to Render and choose **New > Blueprint**.
