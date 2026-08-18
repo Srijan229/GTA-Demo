@@ -1,0 +1,22 @@
+[Unit]
+Description=CEC IST GTA Application
+After=network-online.target mysql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=gta-app
+Group=gta-app
+WorkingDirectory=/opt/gta-application/current
+EnvironmentFile=/etc/gta-application/gta.env
+ExecStart=/usr/bin/dotnet /opt/gta-application/current/Gta.Application.Api.dll
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/gta-application/documents
+
+[Install]
+WantedBy=multi-user.target

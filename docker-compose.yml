@@ -1,0 +1,66 @@
+name: gta-application
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gta-application:${GTA_IMAGE_TAG:-local}
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ASPNETCORE_URLS: http://0.0.0.0:5080
+      ConnectionStrings__GtaDatabase: Server=mysql;Port=3306;Database=${MYSQL_DATABASE:-team2_wp};User=${MYSQL_USER:-team2app};Password=${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      Database__ApplyMigrations: "true"
+      DocumentStorage__RootPath: /var/lib/gta-application/documents
+      DocumentStorage__MaximumBytes: ${DOCUMENT_MAXIMUM_BYTES:-10485760}
+      Email__SmtpHost: mailpit
+      Email__SmtpPort: 1025
+      Email__FromAddress: ${EMAIL_FROM_ADDRESS:-gta-application@example.test}
+    ports:
+      - "${APP_PORT:-5080}:5080"
+    volumes:
+      - document-data:/var/lib/gta-application/documents
+      - data-protection-data:/home/app/.aspnet/DataProtection-Keys
+    depends_on:
+      mysql:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/localhost/5080 && printf 'GET /health/ready HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n' >&3 && grep -q '200 OK' <&3"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-team2_wp}
+      MYSQL_USER: ${MYSQL_USER:-team2app}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+    ports:
+      - "${MYSQL_PORT:-3307}:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    ports:
+      - "${MAILPIT_SMTP_PORT:-1025}:1025"
+      - "${MAILPIT_UI_PORT:-8025}:8025"
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+  document-data:
+  data-protection-data:

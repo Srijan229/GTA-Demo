@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="930" viewBox="0 0 1000 930">
+  <defs>
+    <style>.box{fill:#fff;stroke:#315b7d;stroke-width:2;rx:8}.id{fill:#eaf2f8}.app{fill:#edf6ed}.ops{fill:#fff6e6}.title{font:700 17px Arial;fill:#17365d}.t{font:600 13px Arial;fill:#203040}.s{font:12px Arial;fill:#425466}.line{stroke:#66788a;stroke-width:1.8;fill:none;marker-end:url(#arrow)}.label{font:11px Arial;fill:#526575}</style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#66788a"/></marker>
+  </defs>
+  <text x="30" y="28" class="title">GTA Application SQL relationship map</text>
+  <text x="30" y="49" class="s">Arrow points from foreign-key table to referenced parent table. Audit actor identifiers without FKs are documented separately.</text>
+  <g transform="translate(25,80)"><rect width="220" height="62" class="box id"/><text x="12" y="25" class="t">Users</text><text x="12" y="45" class="s">identity hub</text></g>
+  <g transform="translate(25,180)"><rect width="220" height="55" class="box id"/><text x="12" y="23" class="t">UserRoles</text><text x="12" y="42" class="s">user-to-role bridge</text></g>
+  <g transform="translate(25,280)"><rect width="220" height="55" class="box id"/><text x="12" y="23" class="t">Roles</text></g>
+  <g transform="translate(25,390)"><rect width="220" height="55" class="box id"/><text x="12" y="23" class="t">ApplicantProfiles</text></g>
+  <g transform="translate(25,500)"><rect width="220" height="55" class="box id"/><text x="12" y="23" class="t">EducationRecords</text></g>
+  <g transform="translate(25,590)"><rect width="220" height="55" class="box id"/><text x="12" y="23" class="t">ExperienceRecords</text></g>
+  <g transform="translate(25,700)"><rect width="220" height="55" class="box id"/><text x="12" y="23" class="t">Documents</text></g>
+
+  <g transform="translate(390,80)"><rect width="220" height="55" class="box app"/><text x="12" y="23" class="t">AcademicTerms</text></g>
+  <g transform="translate(390,175)"><rect width="220" height="55" class="box app"/><text x="12" y="23" class="t">ApplicationPhases</text></g>
+  <g transform="translate(390,270)"><rect width="220" height="55" class="box app"/><text x="12" y="23" class="t">Applications</text></g>
+  <g transform="translate(390,365)"><rect width="220" height="55" class="box app"/><text x="12" y="23" class="t">ApplicationStatusHistory</text></g>
+  <g transform="translate(390,460)"><rect width="220" height="55" class="box app"/><text x="12" y="23" class="t">ApplicationChoices</text></g>
+
+  <g transform="translate(745,80)"><rect width="220" height="55" class="box app"/><text x="12" y="23" class="t">Courses</text></g>
+  <g transform="translate(745,190)"><rect width="220" height="55" class="box app"/><text x="12" y="23" class="t">CourseSections</text></g>
+  <g transform="translate(745,315)"><rect width="220" height="55" class="box app"/><text x="12" y="23" class="t">FacultySectionAssignments</text></g>
+  <g transform="translate(745,430)"><rect width="220" height="55" class="box app"/><text x="12" y="23" class="t">FacultyReviewActions</text></g>
+  <g transform="translate(745,545)"><rect width="220" height="55" class="box app"/><text x="12" y="23" class="t">Placements</text></g>
+
+  <g transform="translate(390,650)"><rect width="220" height="55" class="box ops"/><text x="12" y="23" class="t">SystemSettings</text></g>
+  <g transform="translate(390,735)"><rect width="220" height="55" class="box ops"/><text x="12" y="23" class="t">AuditLogs</text></g>
+  <g transform="translate(390,820)"><rect width="220" height="55" class="box ops"/><text x="12" y="23" class="t">EmailOutboxMessages</text></g>
+  <g transform="translate(745,735)"><rect width="220" height="55" class="box ops"/><text x="12" y="23" class="t">SectionImportBatches</text></g>
+
+  <path d="M135 180V142" class="line"/><path d="M245 207H300V307H245" class="line"/>
+  <path d="M135 390V142" class="line"/><path d="M135 500V445" class="line"/><path d="M135 590V445" class="line"/><path d="M135 700V142" class="line"/>
+  <path d="M390 202H320V107H245" class="line"/><path d="M500 175V135" class="line"/>
+  <path d="M390 297H245" class="line"/><path d="M500 270V230" class="line"/><path d="M500 365V325" class="line"/><path d="M500 460V325" class="line"/>
+  <path d="M745 217H665V107H610" class="line"/><path d="M855 190V135" class="line"/><path d="M745 217V107" class="line"/>
+  <path d="M745 342H680V217H245" class="line"/><path d="M855 315V245" class="line"/>
+  <path d="M745 457H680V487H610" class="line"/><path d="M745 457H700V107H245" class="line"/>
+  <path d="M745 572H650V487H610" class="line"/><path d="M855 545V245" class="line"/>
+  <text x="30" y="910" class="s">Independent operational tables: SystemSettings, AuditLogs, EmailOutboxMessages, and SectionImportBatches intentionally have no enforced foreign keys.</text>
+</svg>

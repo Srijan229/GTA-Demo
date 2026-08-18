@@ -1,0 +1,2 @@
+import { Link, useRouteError } from 'react-router-dom';
+export function RouteErrorPage(){useRouteError();return <main className="system-page"><div><p className="eyebrow">Something went wrong</p><h1>We couldn’t display this page</h1><p>Try the page again. If the problem continues, return to sign in and start a new session.</p><button className="button" type="button" onClick={()=>window.location.reload()}>Try again</button> <Link className="secondary-button" to="/login">Return to sign in</Link></div></main>}

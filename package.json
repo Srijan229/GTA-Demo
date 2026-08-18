@@ -1,0 +1,16 @@
+{
+  "name": "gta-application",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace @gta/web",
+    "build:web": "npm run build --workspace @gta/web",
+    "lint:web": "npm run lint --workspace @gta/web",
+    "test:web": "npm run test --workspace @gta/web"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1"
+  }
+}

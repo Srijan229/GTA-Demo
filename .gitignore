@@ -1,0 +1,37 @@
+# JavaScript
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+playwright-report/
+test-results/
+
+# .NET
+bin/
+obj/
+TestResults/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.user
+*.suo
+
+# Runtime data
+infrastructure/data/
+infrastructure/document-storage/files/
+uploads/
+tmp/
+artifacts/
+*.db
+*.db-shm
+*.db-wal
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+docs/deliverables/.*.html
+docs/deliverables/~$*
